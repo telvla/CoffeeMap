@@ -146,7 +146,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         List<CoffeeInfo> list;
                         list = response.body();
 
-                        //.get(position).getTitle()
+
                         /*LatLng sydney = new LatLng(59.830139, 30.372732000000042);
                         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 11));*/
@@ -160,7 +160,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         }
 
-                        
+
 
 
 
