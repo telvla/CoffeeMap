@@ -41,10 +41,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback{
 
     private GoogleMap mMap;
-
     SupportMapFragment mapFrag;
     LocationRequest mLocationRequest;
     Location mLastLocation;
@@ -59,39 +58,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-
-
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
         //stop location updates when Activity is no longer active
         if (mFusedLocationClient != null) {
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
         }
     }
 
-
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-
-        mMap=googleMap;
+        mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(120000); // two minute interval
         mLocationRequest.setFastestInterval(120000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Log.i("test_map", "work ----------- " + marker.getTitle() + marker.getId());
+
+
+                /*Map dataModel = (Map)markers.get(marker);
+                String title = (String)dataModel.get("title");
+                markerOnClick(title);*/
+
+                /*Intent intent1 = new Intent(MapsActivity.this, English.class);
+                startActivity(intent1);}*/
+
+                return false;
+            }
+        });
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
@@ -109,9 +116,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
             mMap.setMyLocationEnabled(true);
         }
-
     }
-
 
     LocationCallback mLocationCallback = new LocationCallback(){
         @Override
@@ -132,8 +137,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mCurrLocationMarker = mMap.addMarker(markerOptions);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));*/
 
-
-
                 List<LatLng> places = new ArrayList<>();
                 CallServer = ApiClient.getClient();
                 api = CallServer.create(API.class);
@@ -146,12 +149,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         List<CoffeeInfo> list;
                         list = response.body();
 
-
-                        /*LatLng sydney = new LatLng(59.830139, 30.372732000000042);
-                        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 11));*/
-
-
                         for (int i = 0; i < list.size(); i++) {
 
                             LatLng sydney = new LatLng(list.get(i).getLongs(), list.get(i).getLats());
@@ -159,46 +156,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 11));
 
                         }
-
-
-
-
-
-
                     }
 
                     @Override
                     public void onFailure(Call<List<CoffeeInfo>> call, Throwable t) {
                     }
                 });
-
-
-                /*places.add(new LatLng(59.8501314, 30.363767499999994));
-                places.add(new LatLng(59.830139, 30.372732000000042));
-
-
-
-                MarkerOptions[] markers = new MarkerOptions[places.size()];
-                for (int i = 0; i < places.size(); i++) {
-                    markers[i] = new MarkerOptions()
-                            .position(places.get(i));
-                    mMap.addMarker(markers[i]);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(places.get(i), 11));
-                }*/
-
-
-               /* LatLng sydney = new LatLng(59.830139, 30.372732000000042);
-                mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 11));
-                */
-
-
-
             }
         };
 
     };
-
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private void checkLocationPermission() {
@@ -226,8 +193,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         })
                         .create()
                         .show();
-
-
             } else {
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this,
@@ -268,22 +233,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // other 'case' lines to check for other
             // permissions this app might request
         }
-
     }
-
-
 }
-
-
-/*
- mMap = googleMap;
-
-        Log.i("map_test", "----");
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-        Log.i("map_test", "++++");
- */
