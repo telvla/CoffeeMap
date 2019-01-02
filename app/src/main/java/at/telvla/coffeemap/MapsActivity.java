@@ -1,13 +1,10 @@
 package at.telvla.coffeemap;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
@@ -32,7 +29,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -60,7 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     TextView Addres;
     TextView Phone;
     TextView Time_work;
-    List<CoffeeInfo> list;
+    List<Info> list;
     ImageButton close;
     ImageButton current;
     ImageButton get_directions;
@@ -205,10 +201,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 CallServer = ApiClient.getClient();
                 api = CallServer.create(API.class);
 
-                Call<List<CoffeeInfo>> call = api.GetAllNewsJson(1);
-                call.enqueue(new Callback<List<CoffeeInfo>>() {
+                Call<List<Info>> call = api.GetAllNewsJson(1);
+                call.enqueue(new Callback<List<Info>>() {
                     @Override
-                    public void onResponse(Call<List<CoffeeInfo>> call, Response<List<CoffeeInfo>> response) {
+                    public void onResponse(Call<List<Info>> call, Response<List<Info>> response) {
 
 
                         list = response.body();
@@ -223,7 +219,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
 
                     @Override
-                    public void onFailure(Call<List<CoffeeInfo>> call, Throwable t) {
+                    public void onFailure(Call<List<Info>> call, Throwable t) {
                     }
                 });
             }

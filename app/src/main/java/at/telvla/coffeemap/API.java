@@ -8,5 +8,5 @@ import retrofit2.http.Query;
 
 public interface API {
     @POST("/map-coffee.html")
-    Call<List<CoffeeInfo>> GetAllNewsJson (@Query("all_coffee_json") Integer all_news_json);
+    Call<List<Info>> GetAllNewsJson (@Query("all_coffee_json") Integer all_news_json);
 }

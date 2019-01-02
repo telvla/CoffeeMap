@@ -1,6 +1,6 @@
 package at.telvla.coffeemap;
 
-public class CoffeeInfo {
+public class Info {
     private String id;
     private String name;
     private String address;
@@ -9,7 +9,7 @@ public class CoffeeInfo {
     private Double longs;
     private Double lats;
 
-    CoffeeInfo (String id, String name, String address, String phone, String link_img, Double longs, Double lats){
+    Info(String id, String name, String address, String phone, String link_img, Double longs, Double lats){
         this.id = id;
         this.name = name;
         this.address = address;
