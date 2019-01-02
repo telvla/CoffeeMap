@@ -64,6 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ImageButton close;
     ImageButton current;
     ImageButton get_directions;
+    String id_current;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 linbox.setVisibility(View.GONE);
                 Intent intent_current = new Intent(MapsActivity.this, CurrentActivity.class);
+                intent_current.putExtra("id_current", id_current);
                 startActivity(intent_current);
             }
         });
@@ -107,6 +109,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         get_directions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
 
 
@@ -147,7 +150,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(intent1);*/
 
 
-
+                id_current = "1";
                 Title.setText(marker.getTitle());
                 Addres.setText(list.get(1).getAddress());
                 Phone.setText(list.get(1).getPhone());

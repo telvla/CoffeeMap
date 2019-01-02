@@ -3,6 +3,7 @@ package at.telvla.coffeemap;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,6 +15,13 @@ public class CurrentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_current);
+
+        Intent intentId = getIntent();
+        String category = intentId.getStringExtra("id_current");
+
+
+        Log.i("test_map", "----------- " + category);
+
     }
 
     @Override
