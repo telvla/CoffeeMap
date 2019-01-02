@@ -3,6 +3,7 @@ package at.telvla.coffeemap;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -15,6 +16,9 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +55,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     FusedLocationProviderClient mFusedLocationClient;
     Retrofit CallServer;
     API api;
+    LinearLayout linbox;
+    TextView Title;
+    TextView Addres;
+    TextView Phone;
+    TextView Time_work;
+    List<CoffeeInfo> list;
+    ImageButton close;
+    ImageButton current;
+    ImageButton get_directions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +71,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        Title = (TextView) findViewById(R.id.title);
+        Addres = (TextView) findViewById(R.id.addres);
+        Phone = (TextView) findViewById(R.id.phone);
+        Time_work = (TextView) findViewById(R.id.time_work);
+
+        linbox = (LinearLayout) findViewById(R.id.linbox);
+        linbox.setVisibility(View.GONE);
+
+        close = (ImageButton) findViewById(R.id.close);
+        current = (ImageButton) findViewById(R.id.current);
+        get_directions = (ImageButton) findViewById(R.id.get_directions);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                linbox.setVisibility(View.GONE);
+            }
+        });
+
+        current.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                linbox.setVisibility(View.GONE);
+                Intent intent_current = new Intent(MapsActivity.this, CurrentActivity.class);
+                startActivity(intent_current);
+            }
+        });
+
+        get_directions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+            }
+        });
     }
 
     @Override
@@ -86,15 +137,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+
+
+                /*String test = "" + marker.getId();
+                int int42 = java.lang.Integer.parseInt(test, 10);*/
                 Log.i("test_map", "work ----------- " + marker.getTitle() + marker.getId());
 
+                /*Intent intent1 = new Intent(MapsActivity.this, CurrentActivity.class);
+                startActivity(intent1);*/
 
-                /*Map dataModel = (Map)markers.get(marker);
-                String title = (String)dataModel.get("title");
-                markerOnClick(title);*/
 
-                /*Intent intent1 = new Intent(MapsActivity.this, English.class);
-                startActivity(intent1);}*/
+
+                Title.setText(marker.getTitle());
+                Addres.setText(list.get(1).getAddress());
+                Phone.setText(list.get(1).getPhone());
+                Time_work.setText("10.00-21.00");
+
+
+
+                linbox.setVisibility(View.VISIBLE);
 
                 return false;
             }
@@ -146,7 +207,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void onResponse(Call<List<CoffeeInfo>> call, Response<List<CoffeeInfo>> response) {
 
-                        List<CoffeeInfo> list;
+
                         list = response.body();
 
                         for (int i = 0; i < list.size(); i++) {
