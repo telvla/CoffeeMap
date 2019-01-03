@@ -1,6 +1,7 @@
 package at.telvla.coffeemap;
 
 import android.Manifest;
+import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -61,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ImageButton current;
     ImageButton get_directions;
     String id_current;
+    AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         close = (ImageButton) findViewById(R.id.close);
         current = (ImageButton) findViewById(R.id.current);
         get_directions = (ImageButton) findViewById(R.id.get_directions);
+
+        //db = AppBD.getInstance().getDatabase();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -105,9 +109,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         get_directions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
 
             }
         });
@@ -137,7 +138,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public boolean onMarkerClick(Marker marker) {
 
-
                 /*String test = "" + marker.getId();
                 int int42 = java.lang.Integer.parseInt(test, 10);*/
                 Log.i("test_map", "work ----------- " + marker.getTitle() + marker.getId());
@@ -145,14 +145,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 /*Intent intent1 = new Intent(MapsActivity.this, CurrentActivity.class);
                 startActivity(intent1);*/
 
-
                 id_current = "1";
                 Title.setText(marker.getTitle());
                 Addres.setText(list.get(1).getAddress());
                 Phone.setText(list.get(1).getPhone());
                 Time_work.setText("10.00-21.00");
-
-
 
                 linbox.setVisibility(View.VISIBLE);
 
@@ -207,6 +204,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onResponse(Call<List<Info>> call, Response<List<Info>> response) {
 
 
+
                         list = response.body();
 
                         for (int i = 0; i < list.size(); i++) {
@@ -214,6 +212,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             LatLng sydney = new LatLng(list.get(i).getLongs(), list.get(i).getLats());
                             mMap.addMarker(new MarkerOptions().position(sydney).title(list.get(i).getName()));
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 11));
+
+
+
+
+                            /*
+                            db = AppBD.getInstance().getDatabase();
+                            Coffee coffee = new Coffee();
+                            coffee.id = i;
+                            coffee.date_name = "rgrs";
+                            coffee.date_address = "srgs";
+                            coffee.date_phone = "st5hsrh";
+                            coffee.date_time_work = "sthsrh";
+                            coffee.date_link_img1 = "sthsh";
+                            coffee.date_link_img2 = "shts";
+                            coffee.date_link_img3 = "shts";
+                            coffee.date_link_img4 = "shsth";
+                            coffee.date_longs = "sths";
+                            coffee.date_lats = "shst";
+                            CoffeeDao.insert(coffee);
+                            */
+
 
                         }
                     }
