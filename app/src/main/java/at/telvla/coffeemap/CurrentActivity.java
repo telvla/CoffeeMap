@@ -28,8 +28,8 @@ import java.util.List;
 
 public class CurrentActivity extends AppCompatActivity {
 
-    /*private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;*/
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,18 +38,17 @@ public class CurrentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_current);
 
-
         Intent intentId = getIntent();
         String category = intentId.getStringExtra("id_current");
+        String title = intentId.getStringExtra("title");
 
-        Log.i("test_map", "----------- " + category);
+        getSupportActionBar().setTitle(title);
 
-
-        /*mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);*/
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
+        /*
         RelativeLayout gameBoard = (RelativeLayout) findViewById(R.id.RelGameboard);
         //RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(100, 100);
@@ -65,10 +64,7 @@ public class CurrentActivity extends AppCompatActivity {
             btnGreen.setId(i);
             gameBoard.addView(btnGreen);
         }
-
-
-
-
+        */
     }
 
     private View.OnClickListener mGreenBallOnClickListener = new View.OnClickListener() {
@@ -80,7 +76,7 @@ public class CurrentActivity extends AppCompatActivity {
         }
     };
 
-    /*
+
     public static class PlaceholderFragment extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";
         public PlaceholderFragment() {
@@ -146,8 +142,6 @@ public class CurrentActivity extends AppCompatActivity {
             return 3;
         }
     }
-    */
-
 
 
     @Override

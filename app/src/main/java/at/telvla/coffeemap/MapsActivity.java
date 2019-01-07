@@ -2,10 +2,12 @@ package at.telvla.coffeemap;
 
 import android.Manifest;
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
@@ -62,7 +64,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ImageButton current;
     ImageButton get_directions;
     String id_current;
-    AppDatabase db;
+    //AppDatabase db;
+    String title;
+    AppDatabase personDAO;
+    CoffeeDao employeeDao;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +88,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         close = (ImageButton) findViewById(R.id.close);
         current = (ImageButton) findViewById(R.id.current);
         get_directions = (ImageButton) findViewById(R.id.get_directions);
+        context = this;
 
         //db = AppBD.getInstance().getDatabase();
+
+        /*personDAO = DatabaseCreator.getPersonDatabase(context);
+        employeeDao = personDAO.coffeeDao();*/
+
+
+        new AgentAsyncTask(this, "1", "111", "111", "111", "111", "111", "111", "111", "111", "111", "111").execute();
+
+
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -102,6 +118,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 linbox.setVisibility(View.GONE);
                 Intent intent_current = new Intent(MapsActivity.this, CurrentActivity.class);
                 intent_current.putExtra("id_current", id_current);
+                intent_current.putExtra("title", title);
+
                 startActivity(intent_current);
             }
         });
@@ -138,8 +156,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public boolean onMarkerClick(Marker marker) {
 
-                /*String test = "" + marker.getId();
-                int int42 = java.lang.Integer.parseInt(test, 10);*/
+                title = "Test " + marker.getId();
+                /*int int42 = java.lang.Integer.parseInt(title, 10);*/
                 Log.i("test_map", "work ----------- " + marker.getTitle() + marker.getId());
 
                 /*Intent intent1 = new Intent(MapsActivity.this, CurrentActivity.class);
@@ -216,22 +234,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-                            /*
-                            db = AppBD.getInstance().getDatabase();
-                            Coffee coffee = new Coffee();
-                            coffee.id = i;
-                            coffee.date_name = "rgrs";
-                            coffee.date_address = "srgs";
-                            coffee.date_phone = "st5hsrh";
-                            coffee.date_time_work = "sthsrh";
-                            coffee.date_link_img1 = "sthsh";
-                            coffee.date_link_img2 = "shts";
-                            coffee.date_link_img3 = "shts";
-                            coffee.date_link_img4 = "shsth";
-                            coffee.date_longs = "sths";
-                            coffee.date_lats = "shst";
-                            CoffeeDao.insert(coffee);
-                            */
+
+
+                                    /*Coffee coffee = new Coffee();
+                                    coffee.id = 1;
+                                    coffee.date_name = "rgrs";
+                                    coffee.date_address = "srgs";
+                                    coffee.date_phone = "st5hsrh";
+                                    coffee.date_time_work = "sthsrh";
+                                    coffee.date_link_img1 = "sthsh";
+                                    coffee.date_link_img2 = "shts";
+                                    coffee.date_link_img3 = "shts";
+                                    coffee.date_link_img4 = "shsth";
+                                    coffee.date_longs = "sths";
+                                    coffee.date_lats = "shst";*/
+
+                                    //employeeDao.insert(coffee);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                         }
