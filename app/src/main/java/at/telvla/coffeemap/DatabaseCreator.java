@@ -12,7 +12,7 @@ public class DatabaseCreator {
             synchronized (LOCK) {
                 if (personDatabase == null) {
                     personDatabase = Room.databaseBuilder(context,
-                            AppDatabase.class, "database2").build();
+                            AppDatabase.class, "database4").build();
                 }
             }
         }

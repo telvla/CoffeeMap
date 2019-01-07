@@ -14,7 +14,7 @@ public class AgentAsyncTask extends AsyncTask<Void, Void, Integer> {
     //Prevent leak
     private WeakReference<Activity> weakActivity;
 
-    private String id;
+    public Integer server_id;
     private String name;
     private String address;
     private String phone;
@@ -23,15 +23,15 @@ public class AgentAsyncTask extends AsyncTask<Void, Void, Integer> {
     private String link_img2;
     private String link_img3;
     private String link_img4;
-    private String longs;
-    private String lats;
+    private Double longs;
+    private Double lats;
+
     Context context;
 
-
-    public AgentAsyncTask(Activity activity, String id, String name, String address, String phone, String time_work, String link_img1, String link_img2, String link_img3, String link_img4, String longs, String lats ) {
+    public AgentAsyncTask(Activity activity, Integer server_id, String name, String address, String phone, String time_work, String link_img1, String link_img2, String link_img3, String link_img4, Double longs, Double lats ) {
         weakActivity = new WeakReference<>(activity);
         this.context = activity;
-        this.id = id;
+        this.server_id = server_id;
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -48,42 +48,29 @@ public class AgentAsyncTask extends AsyncTask<Void, Void, Integer> {
     @Override
     protected Integer doInBackground(Void... params) {
 
-
-        //AgentDao agentDao = MyApp.DatabaseSetup.getDatabase().agentDao();
-
         AppDatabase personDAO;
         CoffeeDao employeeDao;
 
         personDAO = DatabaseCreator.getPersonDatabase(context);
         employeeDao = personDAO.coffeeDao();
 
-        Coffee coffee = new Coffee();
-        /*coffee.date_name = "rgrs";
-        coffee.date_address = "srgs";
-        coffee.date_phone = "st5hsrh";
-        coffee.date_time_work = "sthsrh";
-        coffee.date_link_img1 = "sthsh";
-        coffee.date_link_img2 = "shts";
-        coffee.date_link_img3 = "shts";
-        coffee.date_link_img4 = "shsth";
-        coffee.date_longs = "52,5";
-        coffee.date_lats = "68,6855";*/
-
-
-        /*coffee.name = "John Smith 3";
-        coffee.salary = 10000;
+        /*Coffee coffee = new Coffee();
+        coffee.server_id = server_id;
+        coffee.date_name = name;
+        coffee.date_address = address;
+        coffee.date_phone = phone;
+        coffee.date_time_work = time_work;
+        coffee.date_link_img1 = link_img1;
+        coffee.date_link_img2 = link_img2;
+        coffee.date_link_img3 = link_img3;
+        coffee.date_link_img4 = link_img4;
+        coffee.date_longs = longs;
+        coffee.date_lats = lats;
 
         employeeDao.insert(coffee);*/
 
-
         Coffee coffeeR = employeeDao.getById(3);
-
-        Log.i("test_map", "async ----------- " + coffeeR.name);
-
-
-
-
-
+        Log.i("test_map", "async ----------- " + coffeeR.date_name);
 
         return 0;
     }

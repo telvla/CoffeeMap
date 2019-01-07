@@ -1,7 +1,7 @@
 package at.telvla.coffeemap;
 
 public class Info {
-    private String id;
+    private Integer id;
     private String name;
     private String address;
     private String phone;
@@ -13,7 +13,7 @@ public class Info {
     private Double longs;
     private Double lats;
 
-    Info(String id, String name, String address, String phone, String link_img1, String link_img2, String link_img3, String link_img4, Double longs, String time_work,  Double lats){
+    Info(Integer id, String name, String address, String phone, String link_img1, String link_img2, String link_img3, String link_img4, Double longs, String time_work,  Double lats){
         this.id = id;
         this.name = name;
         this.address = address;
@@ -27,10 +27,10 @@ public class Info {
         this.lats = lats;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public String getName() {

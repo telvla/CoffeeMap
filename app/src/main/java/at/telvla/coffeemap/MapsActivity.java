@@ -1,6 +1,7 @@
 package at.telvla.coffeemap;
 
 import android.Manifest;
+import android.app.Activity;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -69,6 +70,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     AppDatabase personDAO;
     CoffeeDao employeeDao;
     Context context;
+    Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,16 +92,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         get_directions = (ImageButton) findViewById(R.id.get_directions);
         context = this;
 
-        //db = AppBD.getInstance().getDatabase();
 
+        mActivity = this;
+
+
+        //db = AppBD.getInstance().getDatabase();
         /*personDAO = DatabaseCreator.getPersonDatabase(context);
         employeeDao = personDAO.coffeeDao();*/
-
-
-        new AgentAsyncTask(this, "1", "111", "111", "111", "111", "111", "111", "111", "111", "111", "111").execute();
-
-
-
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -222,7 +221,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onResponse(Call<List<Info>> call, Response<List<Info>> response) {
 
 
-
                         list = response.body();
 
                         for (int i = 0; i < list.size(); i++) {
@@ -231,41 +229,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             mMap.addMarker(new MarkerOptions().position(sydney).title(list.get(i).getName()));
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 11));
 
-
-
-
-
-
-                                    /*Coffee coffee = new Coffee();
-                                    coffee.id = 1;
-                                    coffee.date_name = "rgrs";
-                                    coffee.date_address = "srgs";
-                                    coffee.date_phone = "st5hsrh";
-                                    coffee.date_time_work = "sthsrh";
-                                    coffee.date_link_img1 = "sthsh";
-                                    coffee.date_link_img2 = "shts";
-                                    coffee.date_link_img3 = "shts";
-                                    coffee.date_link_img4 = "shsth";
-                                    coffee.date_longs = "sths";
-                                    coffee.date_lats = "shst";*/
-
-                                    //employeeDao.insert(coffee);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                            new AgentAsyncTask(
+                                    mActivity,
+                                    list.get(i).getId(),
+                                    list.get(i).getName(),
+                                    list.get(i).getAddress(),
+                                    list.get(i).getPhone(),
+                                    list.get(i).getTime_work(),
+                                    list.get(i).getLink_img1(),
+                                    list.get(i).getLink_img2(),
+                                    list.get(i).getLink_img3(),
+                                    list.get(i).getLink_img4(),
+                                    list.get(i).getLongs(),
+                                    list.get(i).getLats()).execute();
 
                         }
                     }
