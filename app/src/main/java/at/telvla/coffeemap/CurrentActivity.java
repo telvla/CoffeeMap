@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -31,6 +32,20 @@ public class CurrentActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
+    static int count_img;
+
+    String id_current;
+    String title;
+    String address;
+    String phone;
+    String time_work;
+    static String link_img_1;
+    static String link_img_2;
+    static String link_img_3;
+    static String link_img_4;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +53,26 @@ public class CurrentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_current);
 
+        TextView title_view = (TextView) findViewById(R.id.title);
+        TextView address_view = (TextView) findViewById(R.id.address);
+        TextView phone_view = (TextView) findViewById(R.id.phone);
+        TextView time_work_view = (TextView) findViewById(R.id.time_work);
+
         Intent intentId = getIntent();
-        String category = intentId.getStringExtra("id_current");
-        String title = intentId.getStringExtra("title");
+        id_current = intentId.getStringExtra("id_current");
+        title = intentId.getStringExtra("title");
+        address = intentId.getStringExtra("address");
+        phone = intentId.getStringExtra("phone");
+        time_work = intentId.getStringExtra("time_work");
+        link_img_1 = intentId.getStringExtra("link_img1");
+        link_img_2 = intentId.getStringExtra("link_img2");
+        link_img_3 = intentId.getStringExtra("link_img3");
+        link_img_4 = intentId.getStringExtra("link_img4");
+
+        title_view.setText(title);
+        address_view.setText(address);
+        phone_view.setText(phone);
+        time_work_view.setText(time_work);
 
         getSupportActionBar().setTitle(title);
 
@@ -100,10 +132,42 @@ public class CurrentActivity extends AppCompatActivity {
                 Integer width;
                 String link_img;
                 List<String> mImageId = new ArrayList<String>();
+
                 mImageId.add("");
                 mImageId.add("https://s3.eu-central-1.amazonaws.com/krasota-style/img/blog1/articles/content/ZAQFmQGZ5CiTNhUWAxO7qPEeA-_Yhy2J-5BRyDCsd.jpg");
                 mImageId.add("http://cdn.appaix.com/2016/0128/live-cricket-2014-11_1.jpg");
                 mImageId.add("https://9968c6ef49dc043599a5-e151928c3d69a5a4a2d07a8bf3efa90a.ssl.cf2.rackcdn.com/84263-7.jpg");
+
+                /*for (int i = 1; i < 5; i++) {
+                    String img_val = new String("link_img_" + i);
+                    Log.i("greenys","->" + img_val + new String("link_img_" + i) + link_img_1 );
+                    if (img_val.trim().length() == 0) {
+                        mImageId.add(img_val);
+                    }
+                }*/
+
+                /*if (link_img_1.trim().length() != 0) {
+                    mImageId.add(link_img_1);
+                }
+
+                if (link_img_2.trim().length() != 0) {
+                    mImageId.add(link_img_2);
+                }
+
+                if (link_img_3.trim().length() != 0) {
+                    mImageId.add(link_img_3);
+                }
+
+                if (link_img_4.trim().length() != 0) {
+                    mImageId.add(link_img_4);
+                }
+
+                if (mImageId.size() == 0) {
+                    count_img = 1;
+                    mImageId.add("http://cdn.appaix.com/2016/0128/live-cricket-2014-11_1.jpg");
+                } else {
+                    count_img = mImageId.size();
+                }*/
 
                 DisplayMetrics metrics = new DisplayMetrics();
                 WindowManager windowManager = (WindowManager) getContext()
@@ -142,7 +206,6 @@ public class CurrentActivity extends AppCompatActivity {
             return 3;
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

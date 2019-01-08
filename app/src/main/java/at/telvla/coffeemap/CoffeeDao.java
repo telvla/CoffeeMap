@@ -16,6 +16,9 @@ public interface CoffeeDao {
     @Query("SELECT * FROM coffee WHERE id = :id")
     Coffee getById(long id);
 
+    @Query("SELECT * FROM coffee WHERE id = :id")
+    Coffee getByIdServer(Integer id);
+
     @Insert
     void insert(Coffee coffee);
 

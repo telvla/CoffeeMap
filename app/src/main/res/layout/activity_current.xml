@@ -37,23 +37,30 @@
         android:orientation="vertical"
         tools:context="at.telvla.cricket.CurrentNews">
 
-        
+
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Заголовок"/>
 
         <TextView
+            android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Адрес"/>
 
         <TextView
+            android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Телефон"/>
 
-
+        <TextView
+            android:id="@+id/time_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Время работы"/>
 
 
     </LinearLayout>

@@ -77,7 +77,7 @@ public class AgentAsyncTask extends AsyncTask<Void, Void, Integer> {
 
     @Override
     protected void onPostExecute(Integer agentsCount) {
-        Activity activity = weakActivity.get();
+        /*Activity activity = weakActivity.get();
         if(activity == null) {
             return;
         }
@@ -88,6 +88,6 @@ public class AgentAsyncTask extends AsyncTask<Void, Void, Integer> {
         } else {
             Toast.makeText(activity, "Agent does not exist! Hurray :)", Toast.LENGTH_LONG).show();
             //activity.onBackPressed();
-        }
+        }*/
     }
 }

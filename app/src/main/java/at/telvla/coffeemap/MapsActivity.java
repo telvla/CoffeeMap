@@ -114,10 +114,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         current.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 linbox.setVisibility(View.GONE);
                 Intent intent_current = new Intent(MapsActivity.this, CurrentActivity.class);
+
                 intent_current.putExtra("id_current", id_current);
-                intent_current.putExtra("title", title);
+                intent_current.putExtra("title", list.get(Integer.valueOf(id_current)).getName());
+                intent_current.putExtra("address", list.get(Integer.valueOf(id_current)).getAddress());
+                intent_current.putExtra("phone", list.get(Integer.valueOf(id_current)).getPhone());
+                intent_current.putExtra("time_work", list.get(Integer.valueOf(id_current)).getTime_work());
+                intent_current.putExtra("link_img1", list.get(Integer.valueOf(id_current)).getLink_img1());
+                intent_current.putExtra("link_img2", list.get(Integer.valueOf(id_current)).getLink_img2());
+                intent_current.putExtra("link_img3", list.get(Integer.valueOf(id_current)).getLink_img3());
+                intent_current.putExtra("link_img4", list.get(Integer.valueOf(id_current)).getLink_img4());
 
                 startActivity(intent_current);
             }
