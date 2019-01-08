@@ -42,7 +42,6 @@ public class AgentAsyncTask extends AsyncTask<Void, Void, Integer> {
         this.link_img4 = link_img4;
         this.longs = longs;
         this.lats = lats;
-
     }
 
     @Override

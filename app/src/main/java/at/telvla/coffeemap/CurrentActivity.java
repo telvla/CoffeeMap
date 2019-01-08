@@ -106,7 +106,6 @@ public class CurrentActivity extends AppCompatActivity {
         }
     };
 
-
     public static class PlaceholderFragment extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";
         public PlaceholderFragment() {
@@ -132,7 +131,7 @@ public class CurrentActivity extends AppCompatActivity {
                 List<String> mImageId = new ArrayList<String>();
 
                 mImageId.add("");
-                mImageId.add("https://s3.eu-central-1.amazonaws.com/krasota-style/img/blog1/articles/content/ZAQFmQGZ5CiTNhUWAxO7qPEeA-_Yhy2J-5BRyDCsd.jpg");
+                mImageId.add(link_img_1);
                 mImageId.add("http://cdn.appaix.com/2016/0128/live-cricket-2014-11_1.jpg");
                 mImageId.add("https://9968c6ef49dc043599a5-e151928c3d69a5a4a2d07a8bf3efa90a.ssl.cf2.rackcdn.com/84263-7.jpg");
 

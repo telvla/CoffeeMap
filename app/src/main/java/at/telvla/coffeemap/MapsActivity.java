@@ -157,7 +157,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Title.setText(list.get(Integer.valueOf(id_current)).getName());
                 Addres.setText(list.get(Integer.valueOf(id_current)).getAddress());
                 Phone.setText(list.get(Integer.valueOf(id_current)).getPhone());
-                Time_work.setText("10.00-21.00");
+                Time_work.setText(list.get(Integer.valueOf(id_current)).getTime_work());
                 linbox.setVisibility(View.VISIBLE);
 
                 return false;
