@@ -2,13 +2,11 @@ package at.telvla.coffeemap;
 
 import android.Manifest;
 import android.app.Activity;
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
@@ -22,7 +20,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -65,10 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ImageButton current;
     ImageButton get_directions;
     String id_current;
-    //AppDatabase db;
     String title;
-    AppDatabase personDAO;
-    CoffeeDao employeeDao;
     Context context;
     Activity mActivity;
 
@@ -90,15 +84,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         close = (ImageButton) findViewById(R.id.close);
         current = (ImageButton) findViewById(R.id.current);
         get_directions = (ImageButton) findViewById(R.id.get_directions);
+
         context = this;
-
-
         mActivity = this;
-
-
-        //db = AppBD.getInstance().getDatabase();
-        /*personDAO = DatabaseCreator.getPersonDatabase(context);
-        employeeDao = personDAO.coffeeDao();*/
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -164,19 +152,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public boolean onMarkerClick(Marker marker) {
 
-                title = "Test " + marker.getId();
-                /*int int42 = java.lang.Integer.parseInt(title, 10);*/
-                Log.i("test_map", "work ----------- " + marker.getTitle() + marker.getId());
+                id_current = marker.getId().substring(1);
 
-                /*Intent intent1 = new Intent(MapsActivity.this, CurrentActivity.class);
-                startActivity(intent1);*/
-
-                id_current = "1";
-                Title.setText(marker.getTitle());
-                Addres.setText(list.get(1).getAddress());
-                Phone.setText(list.get(1).getPhone());
+                Title.setText(list.get(Integer.valueOf(id_current)).getName());
+                Addres.setText(list.get(Integer.valueOf(id_current)).getAddress());
+                Phone.setText(list.get(Integer.valueOf(id_current)).getPhone());
                 Time_work.setText("10.00-21.00");
-
                 linbox.setVisibility(View.VISIBLE);
 
                 return false;

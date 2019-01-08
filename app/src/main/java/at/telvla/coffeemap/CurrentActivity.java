@@ -44,8 +44,6 @@ public class CurrentActivity extends AppCompatActivity {
     static String link_img_3;
     static String link_img_4;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
