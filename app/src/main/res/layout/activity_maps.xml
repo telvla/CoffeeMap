@@ -23,30 +23,27 @@
 
                 <ImageButton
                     android:id="@+id/close"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:background="@drawable/ripple_oval"
                     android:elevation="8dp"
                     />
 
                 <ImageButton
                     android:id="@+id/current"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:background="@drawable/ripple_oval"
                     android:elevation="8dp"
                     />
 
                 <ImageButton
                     android:id="@+id/get_directions"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:background="@drawable/ripple_oval"
                     android:elevation="8dp"
                     />
-
-
-
 
 
 

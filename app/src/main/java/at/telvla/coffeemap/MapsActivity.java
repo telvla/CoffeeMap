@@ -30,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -124,6 +125,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
+                String test1 = "59.92970529999999";
+                String test2 = "30.344619400000056";
+
+                String test3 = "59.94376879999999";
+                String test4 = "30.354161699999963";
+
+                String str_origin = "origin=" + test1 + "," + test2;
+                String str_dest = "destination=" + test3 + "," + test4;
+                String parameters = str_origin + "&" + str_dest + "&sensor=false" + "&key=AIzaSyBxhIOib9Jl0kKwugxAWTyFEB4c2ht5kqs";
+
+                //https://maps.googleapis.com/maps/api/directions/json?
+                /*В ответе ты получишь массив точек. Эти точки ты просто соединяешь межу собой в googleMaps при помощи метода карты
+                map.addPolyline(...)*/
+
+
+
+
+
+                Log.i("route", "Проложить маршурут " + parameters);
+
+
+
             }
         });
     }
@@ -199,9 +222,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 markerOptions.title("Current Position");
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
                 mCurrLocationMarker = mMap.addMarker(markerOptions);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));*/
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+                */
 
-                List<LatLng> places = new ArrayList<>();
                 CallServer = ApiClient.getClient();
                 api = CallServer.create(API.class);
 
@@ -209,7 +232,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 call.enqueue(new Callback<List<Info>>() {
                     @Override
                     public void onResponse(Call<List<Info>> call, Response<List<Info>> response) {
-
 
                         list = response.body();
 
@@ -219,7 +241,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             mMap.addMarker(new MarkerOptions().position(sydney).title(list.get(i).getName()));
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 11));
 
-                            new AgentAsyncTask(
+                            new AgentAsyncTask (
                                     mActivity,
                                     list.get(i).getId(),
                                     list.get(i).getName(),
@@ -232,7 +254,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     list.get(i).getLink_img4(),
                                     list.get(i).getLongs(),
                                     list.get(i).getLats()).execute();
-
                         }
                     }
 
@@ -242,7 +263,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 });
             }
         };
-
     };
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
