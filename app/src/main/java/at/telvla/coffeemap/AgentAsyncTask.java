@@ -68,8 +68,8 @@ public class AgentAsyncTask extends AsyncTask<Void, Void, Integer> {
 
         employeeDao.insert(coffee);*/
 
-        Coffee coffeeR = employeeDao.getById(3);
-        Log.i("test_map", "async ----------- " + coffeeR.date_name);
+        /*Coffee coffeeR = employeeDao.getById(3);
+        Log.i("test_map", "async ----------- " + coffeeR.date_name);*/
 
         return 0;
     }

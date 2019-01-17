@@ -1,7 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".MapsActivity" />
+
+        <LinearLayout
+            android:id="@+id/linbox"
+            android:layout_width="fill_parent"
+            android:layout_height="250dp"
+            android:layout_weight="1"
+            android:layout_alignParentBottom="true"
+            android:background="#fff"
+            android:gravity="center|bottom"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal|bottom"
+            >
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textSize="15dp"/>
+
+                <TextView
+                    android:id="@+id/addres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textSize="15dp"/>
+
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textSize="15dp"/>
+
+                <TextView
+                    android:id="@+id/time_work"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textSize="15dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="250dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal|bottom"
+            >
+                <ImageButton
+                    android:id="@+id/close"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ripple_oval"
+                    android:elevation="8dp"
+                    />
+
+                <ImageButton
+                    android:id="@+id/current"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ripple_oval"
+                    android:elevation="8dp"
+                    />
+
+                <ImageButton
+                    android:id="@+id/get_directions"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ripple_oval"
+                    android:elevation="8dp"
+                    />
+        </LinearLayout>
+</FrameLayout>
+
+
+
+<!--
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:map="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
@@ -45,8 +144,6 @@
                     android:elevation="8dp"
                     />
 
-
-
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
@@ -79,17 +176,6 @@
                     android:text=""
                     android:textSize="15dp"/>
 
-                <!--
-                <ImageButton
-                        android:id="@+id/fab_add"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/ripple_oval"
-                        android:elevation="8dp"
-                 />
-                 android:src="@drawable/ic_launcher"
-                    android:layout_gravity="bottom|right"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginRight="16dp"-->
         </LinearLayout>
 </RelativeLayout>
+-->
