@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context=".CurrentActivity">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,21 +20,13 @@
             />
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_marginTop="300dp"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/RelGameboard">
-    </RelativeLayout>
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="220dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:orientation="vertical"
         tools:context="at.telvla.cricket.CurrentNews">
 
@@ -41,6 +34,8 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="30dp"
             android:text="Заголовок"/>
 
         <TextView
@@ -51,15 +46,28 @@
 
         <TextView
             android:id="@+id/phone"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Телефон"/>
 
         <TextView
             android:id="@+id/time_work"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Время работы"/>
 
     </LinearLayout>
+
+    <!--<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:layout_centerInParent="true"
+        android:id="@+id/RelGameboard">
+    </RelativeLayout>-->
+
 </android.support.constraint.ConstraintLayout>

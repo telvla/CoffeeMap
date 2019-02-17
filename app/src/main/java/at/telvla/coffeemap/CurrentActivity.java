@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -31,18 +32,13 @@ public class CurrentActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-
     static int count_img;
-
+    static List<String> mImageId;
     String id_current;
     String title;
     String address;
     String phone;
     String time_work;
-    static String link_img_1;
-    static String link_img_2;
-    static String link_img_3;
-    static String link_img_4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +47,10 @@ public class CurrentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_current);
 
-        TextView title_view = (TextView) findViewById(R.id.title);
-        TextView address_view = (TextView) findViewById(R.id.address);
-        TextView phone_view = (TextView) findViewById(R.id.phone);
-        TextView time_work_view = (TextView) findViewById(R.id.time_work);
+        TextView title_view = findViewById(R.id.title);
+        TextView address_view = findViewById(R.id.address);
+        TextView phone_view = findViewById(R.id.phone);
+        TextView time_work_view = findViewById(R.id.time_work);
 
         Intent intentId = getIntent();
         id_current = intentId.getStringExtra("id_current");
@@ -62,39 +58,25 @@ public class CurrentActivity extends AppCompatActivity {
         address = intentId.getStringExtra("address");
         phone = intentId.getStringExtra("phone");
         time_work = intentId.getStringExtra("time_work");
-        link_img_1 = intentId.getStringExtra("link_img1");
-        link_img_2 = intentId.getStringExtra("link_img2");
-        link_img_3 = intentId.getStringExtra("link_img3");
-        link_img_4 = intentId.getStringExtra("link_img4");
+
+        mImageId = new ArrayList<String>();
+        for (int i = 1; i < 5; i++) {
+            if (intentId.getStringExtra("link_img" + i).trim().length() != 0) {
+                mImageId.add(intentId.getStringExtra("link_img" + i));
+            }
+        }
+        count_img = mImageId.size();
 
         title_view.setText(title);
         address_view.setText(address);
-        phone_view.setText(phone);
-        time_work_view.setText(time_work);
+        phone_view.setText("Телефон: " + phone);
+        time_work_view.setText("Время работы: " + time_work);
 
         getSupportActionBar().setTitle(title);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        /*
-        RelativeLayout gameBoard = (RelativeLayout) findViewById(R.id.RelGameboard);
-        //RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(100, 100);
-        lp.addRule(RelativeLayout.CENTER_IN_PARENT,1);
-
-        for (int i = 0 ; i <  3 ; i++) {
-            ImageButton btnGreen = new ImageButton(this);
-            btnGreen.setImageResource(R.drawable.no_photo);
-            btnGreen.setLayoutParams(lp);
-            btnGreen.setOnClickListener(mGreenBallOnClickListener);
-            btnGreen.setBackgroundColor(Color.TRANSPARENT);
-            btnGreen.setTag(i);
-            btnGreen.setId(i);
-            gameBoard.addView(btnGreen);
-        }
-        */
     }
 
     private View.OnClickListener mGreenBallOnClickListener = new View.OnClickListener() {
@@ -122,64 +104,18 @@ public class CurrentActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_slaider_img, container, false);
             Integer id_img = getArguments().getInt(ARG_SECTION_NUMBER);
-            ImageView imageView = (ImageView) rootView.findViewById(R.id.img);
+            ImageView imageView = rootView.findViewById(R.id.img);
 
             try {
-
                 Integer width;
-                String link_img;
-                List<String> mImageId = new ArrayList<String>();
-
-                mImageId.add("");
-                mImageId.add(link_img_1);
-                mImageId.add("http://cdn.appaix.com/2016/0128/live-cricket-2014-11_1.jpg");
-                mImageId.add("https://9968c6ef49dc043599a5-e151928c3d69a5a4a2d07a8bf3efa90a.ssl.cf2.rackcdn.com/84263-7.jpg");
-
-                /*for (int i = 1; i < 5; i++) {
-                    String img_val = new String("link_img_" + i);
-                    Log.i("greenys","->" + img_val + new String("link_img_" + i) + link_img_1 );
-                    if (img_val.trim().length() == 0) {
-                        mImageId.add(img_val);
-                    }
-                }*/
-
-                /*if (link_img_1.trim().length() != 0) {
-                    mImageId.add(link_img_1);
-                }
-
-                if (link_img_2.trim().length() != 0) {
-                    mImageId.add(link_img_2);
-                }
-
-                if (link_img_3.trim().length() != 0) {
-                    mImageId.add(link_img_3);
-                }
-
-                if (link_img_4.trim().length() != 0) {
-                    mImageId.add(link_img_4);
-                }
-
-                if (mImageId.size() == 0) {
-                    count_img = 1;
-                    mImageId.add("http://cdn.appaix.com/2016/0128/live-cricket-2014-11_1.jpg");
-                } else {
-                    count_img = mImageId.size();
-                }*/
-
                 DisplayMetrics metrics = new DisplayMetrics();
                 WindowManager windowManager = (WindowManager) getContext()
                         .getSystemService(Context.WINDOW_SERVICE);
                 windowManager.getDefaultDisplay().getMetrics(metrics);
-                width = metrics.widthPixels;
-
-                if (mImageId.get(id_img).length() == 0) {
-                    link_img = "http://cdn.appaix.com/2016/0128/live-cricket-2014-11_1.jpg";
-                } else {
-                    link_img = mImageId.get(id_img);
-                }
+                width = metrics.widthPixels + metrics.widthPixels;
 
                 Picasso.with(getContext())
-                        .load(link_img)
+                        .load(mImageId.get(id_img))
                         .resize(width, 800)
                         .centerCrop()
                         .error(R.drawable.no_photo)
@@ -196,11 +132,11 @@ public class CurrentActivity extends AppCompatActivity {
         }
         @Override
         public Fragment getItem(int position) {
-            return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position);
         }
         @Override
         public int getCount() {
-            return 3;
+            return count_img;
         }
     }
 
@@ -224,3 +160,29 @@ public class CurrentActivity extends AppCompatActivity {
         finish();
     }
 }
+
+        /*
+        RelativeLayout gameBoard = (RelativeLayout) findViewById(R.id.RelGameboard);
+        //RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(100, 100);
+        lp.addRule(RelativeLayout.CENTER_IN_PARENT,1);
+
+        for (int i = 0 ; i <  3 ; i++) {
+            ImageButton btnGreen = new ImageButton(this);
+            btnGreen.setImageResource(R.drawable.no_photo);
+            btnGreen.setLayoutParams(lp);
+            btnGreen.setOnClickListener(mGreenBallOnClickListener);
+            btnGreen.setBackgroundColor(Color.TRANSPARENT);
+            btnGreen.setTag(i);
+            btnGreen.setId(i);
+            gameBoard.addView(btnGreen);
+        }
+        */
+
+         /*for (int i = 1; i < 5; i++) {
+            String img_val = new String("link_img_" + i);
+            Log.i("greenys","->" + img_val + new String("link_img_" + i) + link_img_1 );
+            if (img_val.trim().length() == 0) {
+                mImageId.add(img_val);
+            }
+        }*/

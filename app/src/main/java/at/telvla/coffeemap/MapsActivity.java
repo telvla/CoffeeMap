@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Looper;
@@ -21,20 +22,28 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.PolyUtil;
+//import com.google.android.gms.maps.model.PolylineOptions;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Retrofit CallServer;
     API api;
     LinearLayout linbox;
+    LinearLayout lin_bot;
     TextView Title;
     TextView Addres;
     TextView Phone;
@@ -74,17 +84,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        Title = (TextView) findViewById(R.id.title);
-        Addres = (TextView) findViewById(R.id.addres);
-        Phone = (TextView) findViewById(R.id.phone);
-        Time_work = (TextView) findViewById(R.id.time_work);
+        Title = findViewById(R.id.title);
+        Addres = findViewById(R.id.addres);
+        Phone = findViewById(R.id.phone);
+        Time_work = findViewById(R.id.time_work);
 
-        linbox = (LinearLayout) findViewById(R.id.linbox);
+        linbox = findViewById(R.id.linbox);
         linbox.setVisibility(View.GONE);
+        lin_bot = findViewById(R.id.lin_bot);
+        lin_bot.setVisibility(View.GONE);
 
-        close = (ImageButton) findViewById(R.id.close);
-        current = (ImageButton) findViewById(R.id.current);
-        get_directions = (ImageButton) findViewById(R.id.get_directions);
+        close = findViewById(R.id.close);
+        current = findViewById(R.id.current);
+        get_directions = findViewById(R.id.get_directions);
 
         context = this;
         mActivity = this;
@@ -97,6 +109,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 linbox.setVisibility(View.GONE);
+                lin_bot.setVisibility(View.GONE);
             }
         });
 
@@ -105,6 +118,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
 
                 linbox.setVisibility(View.GONE);
+                lin_bot.setVisibility(View.GONE);
                 Intent intent_current = new Intent(MapsActivity.this, CurrentActivity.class);
 
                 intent_current.putExtra("id_current", id_current);
@@ -127,10 +141,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 String test1 = "59.92970529999999";
                 String test2 = "30.344619400000056";
-
                 String test3 = "59.94376879999999";
                 String test4 = "30.354161699999963";
-
                 String str_origin = "origin=" + test1 + "," + test2;
                 String str_dest = "destination=" + test3 + "," + test4;
                 String parameters = str_origin + "&" + str_dest + "&sensor=false" + "&key=AIzaSyBxhIOib9Jl0kKwugxAWTyFEB4c2ht5kqs";
@@ -140,13 +152,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 map.addPolyline(...)*/
 
 
+                String points = "{_xlJgsexD}As@c@Ww@m@c@SaCkASIUKm@YyAq@{Aq@";
 
+                List<LatLng> mPoints = PolyUtil.decode(points);
+                PolylineOptions line = new PolylineOptions();
+                line.width(8).color(Color.RED).geodesic(true);
+                //.width(4f).color(R.color.colorAccent);
+                LatLngBounds.Builder latLngBuilder = new LatLngBounds.Builder();
+                for (int i = 0; i < mPoints.size(); i++) {
+                    line.add(mPoints.get(i));
+                    latLngBuilder.include(mPoints.get(i));
 
-
-                Log.i("route", "Проложить маршурут " + parameters);
-
-
-
+                    Log.i("route_test", "-------------------------" + i + "----------------------------" + mPoints.get(i));
+                }
+                mMap.addPolyline(line);
+                int size = getResources().getDisplayMetrics().widthPixels;
+                LatLngBounds latLngBounds = latLngBuilder.build();
+                CameraUpdate track = CameraUpdateFactory.newLatLngBounds(latLngBounds, size, size, 25);
+                mMap.moveCamera(track);
             }
         });
     }
@@ -182,6 +205,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Phone.setText(list.get(Integer.valueOf(id_current)).getPhone());
                 Time_work.setText(list.get(Integer.valueOf(id_current)).getTime_work());
                 linbox.setVisibility(View.VISIBLE);
+                lin_bot.setVisibility(View.VISIBLE);
 
                 return false;
             }
@@ -333,3 +357,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 }
+
+
+
+                /*Call<List<GoogleAnswerInfo>> call = api.GetGoogleAnswerInfo(parameters);
+                call.enqueue(new Callback<List<GoogleAnswerInfo>>() {
+                    @Override
+                    public void onResponse(Call<List<GoogleAnswerInfo>> call, Response<List<GoogleAnswerInfo>> response) {
+
+                        Log.i("route_test", "onResponse: " + response.body());
+
+
+                        //List<GoogleAnswerInfo> list = response.body();
+                        //Log.i("route_test", "onResponse: " + list.get(1).status);
+                        //PolylineOptions line = new PolylineOptions();
+                        //line.width(4f).color(R.color.colorPrimary);
+
+                        //map.addPolyline(line);
+                        //int size = getResources().getDisplayMetrics().widthPixels;
+                        //LatLngBounds latLngBounds = latLngBuilder.build();
+                        //CameraUpdate track = CameraUpdateFactory.newLatLngBounds(latLngBounds, size, size, 25);
+                        //map.moveCamera(track);
+                        //map.clear();
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<GoogleAnswerInfo>> call, Throwable t) {
+                    }
+                });*/
